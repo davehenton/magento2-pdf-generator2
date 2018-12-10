@@ -48,22 +48,19 @@ jobs:
       - checkout:
           path: app/code/Eadesigndev/Pdfgenerator
 
-      - run:
-          name: Install code climate
-          command: composer create-project codeclimate/php-test-reporter codeclimate
 #       - run:
+#           name: Install code climate
+#           command: composer create-project codeclimate/php-test-reporter codeclimate
+# #       - run:
 #           name: Install marketplace qulity tools
 #           command: composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
 
-      - run:
-          name: Qulity verifications code sniffer
-          command: php magento-coding-standard/vendor/bin/phpcs --standard=app/code/Eadesigndev/Pdfgenerator/Test/Php/_files/phpcs/ruleset.xml app/code/Eadesigndev/Pdfgenerator/Api/ app/code/Eadesigndev/Pdfgenerator/Block/ app/code/Eadesigndev/Pdfgenerator/Controller/ app/code/Eadesigndev/Pdfgenerator/Helper/ app/code/Eadesigndev/Pdfgenerator/Model/ app/code/Eadesigndev/Pdfgenerator/Setup/ app/code/Eadesigndev/Pdfgenerator/Test/ app/code/Eadesigndev/Pdfgenerator/Ui/ app/code/Eadesigndev/Pdfgenerator/view/
-      - run:
-          name: Qulity verifications mess dedector
-          command: php vendor/bin/phpmd app/code/Eadesigndev/Pdfgenerator/Api/,app/code/Eadesigndev/Pdfgenerator/Block/,app/code/Eadesigndev/Pdfgenerator/Controller/,app/code/Eadesigndev/Pdfgenerator/Helper/,app/code/Eadesigndev/Pdfgenerator/Model/,app/code/Eadesigndev/Pdfgenerator/Setup/,app/code/Eadesigndev/Pdfgenerator/Ui/,app/code/Eadesigndev/Pdfgenerator/view/ text  app/code/Eadesigndev/Pdfgenerator/Test/Php/_files/phpmd/ruleset.xml
-      - run:
-          name: Run unit tests
-          command: php vendor/bin/phpunit app/code/Eadesigndev/Pdfgenerator/Test/ --config dev/tests/unit/phpunit.xml.dist --coverage-clover=app/code/Eadesigndev/Pdfgenerator/build/logs/clover.xml
+#       - run:
+#           name: Qulity verifications code sniffer
+#           command: php magento-coding-standard/vendor/bin/phpcs --standard=app/code/Eadesigndev/Pdfgenerator/Test/Php/_files/phpcs/ruleset.xml app/code/Eadesigndev/Pdfgenerator/Api/ app/code/Eadesigndev/Pdfgenerator/Block/ app/code/Eadesigndev/Pdfgenerator/Controller/ app/code/Eadesigndev/Pdfgenerator/Helper/ app/code/Eadesigndev/Pdfgenerator/Model/ app/code/Eadesigndev/Pdfgenerator/Setup/ app/code/Eadesigndev/Pdfgenerator/Test/ app/code/Eadesigndev/Pdfgenerator/Ui/ app/code/Eadesigndev/Pdfgenerator/view/
+#       - run:
+#           name: Qulity verifications mess dedector
+#           command: php vendor/bin/phpmd app/code/Eadesigndev/Pdfgenerator/Api/,app/code/Eadesigndev/Pdfgenerator/Block/,app/code/Eadesigndev/Pdfgenerator/Controller/,app/code/Eadesigndev/Pdfgenerator/Helper/,app/code/Eadesigndev/Pdfgenerator/Model/,app/code/Eadesigndev/Pdfgenerator/Setup/,app/code/Eadesigndev/Pdfgenerator/Ui/,app/code/Eadesigndev/Pdfgenerator/view/ text  app/code/Eadesigndev/Pdfgenerator/Test/Php/_files/phpmd/ruleset.xml
 
       - run:
           name: Get the reporter script
@@ -75,5 +72,8 @@ jobs:
           name: Run the before script
           command: cd app/code/Eadesigndev/Pdfgenerator && ./cc-test-reporter before-build
       - run:
+          name: Run unit tests
+          command: php vendor/bin/phpunit app/code/Eadesigndev/Pdfgenerator/Test/ --config dev/tests/unit/phpunit.xml.dist --coverage-clover=app/code/Eadesigndev/Pdfgenerator/build/logs/clover.xml
+      - run:
           name: Rune the reporter
-          command: cd app/code/Eadesigndev/Pdfgenerator && ./cc-test-reporter after-build -r $CC_TEST_REPORTER_ID --coverage-input-type clover --exit-code $?
+          command: cd app/code/Eadesigndev/Pdfgenerator && ./cc-test-reporter after-build -r --coverage-input-type clover --exit-code $?
