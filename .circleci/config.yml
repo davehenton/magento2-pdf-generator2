@@ -51,9 +51,9 @@ jobs:
       - run:
           name: Install code climate
           command: composer create-project codeclimate/php-test-reporter codeclimate
-      - run:
-          name: Install marketplace qulity tools
-          command: composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
+#       - run:
+#           name: Install marketplace qulity tools
+#           command: composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
 
       - run:
           name: Qulity verifications code sniffer
